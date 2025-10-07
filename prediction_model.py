@@ -6,7 +6,7 @@ import csv
 import streamlit as st
 from pathlib import Path
 
-def predict(df):
+def predict(df, model_code: str):
     df.to_csv("USD_JPY.csv", index=False, header = False, sep=',', quotechar='"', quoting=csv.QUOTE_ALL)
     df = pd.read_csv("USD_JPY.csv")
     df.columns = ["Datetime","Close","High","Low","Open","Volume"]
@@ -20,13 +20,13 @@ def predict(df):
 
 
     # Check if the file exists
-    if not Path("fx_model.pkl").exists():
+    if not Path(f"fx_model-{model_code}.pkl").exists():
         setup(data=df, target="next_close", session_id=123)
         model = compare_models()
         final_model = finalize_model(model)
-        save_model(final_model, "fx_model")
+        save_model(final_model, f"fx_model-{model_code}")
 
-    final_model = load_model("fx_model")
+    final_model = load_model(f"fx_model-{model_code}")
     s = predict_model(final_model, data=prediction_row)
     
     return round(float(s.prediction_label), 3)
