@@ -51,7 +51,6 @@ def fetch_usdjpy_data(interval: str):
     if data.empty:
         st.error("No data retrieved. Please ensure the stock market is open or check the ticker.")
     
-    # Reset index and format DataFrame to include 'x' (time) and 'y' (price)
     data = data.reset_index()
     data['time'] = data['Datetime']
     data['close'] = data['Close']
@@ -79,8 +78,6 @@ def fetch_today_max_min(start_time: str):
     local_start_time = local_tz.localize(datetime.combine(local_now, datetime.strptime(start_time, "%H:%M").time()))
     utc_start_time = local_start_time.astimezone(utc)
 
-    st.write(local_now)
-    st.stop()
     # Fetch today's USD/JPY data with minute intervals
     data = yf.download(tickers=symbol, start=str(local_now), interval="1m")
 
@@ -149,7 +146,6 @@ i = 0
 while True:
     # Get a subset of the most recent data (last 30 minutes)
     if i > len(usdjpy_data):
-        print("getting...", time.time() - last_time)
         if time.time() - last_time >= 60:  # 60 seconds = 1 minute
             print("fetching...")
             usdjpy_data = fetch_usdjpy_data("1m")
@@ -158,9 +154,7 @@ while True:
         else:
             time.sleep(1)
             continue
-    else:
-        i += 1
-        
+    i += 1
     data_to_plot = usdjpy_data.iloc[max(0, i - visible_minutes):i + 1]
 
     # Retrieve the last visible point (current point for visualization)
