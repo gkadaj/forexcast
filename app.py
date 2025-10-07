@@ -130,7 +130,7 @@ with stat_cols[1]:
     current_target_ui = st.empty()
     with current_target_ui.container():
         st.write("Prediction (Target) awaiting...")
-        st.text(f"Prediction triggers every {targeting_period}m")
+        st.success(f"Prediction triggers every {targeting_period}m")
 
 
 # Create a placeholder for targets grid
