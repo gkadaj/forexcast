@@ -14,7 +14,7 @@ def fetch_training_data(period: str):
 
     # Determine the last trading day
     now = datetime.now()
-    start_time = now - timedelta(days=2)
+    start_time = now - timedelta(days=5)
     start_time = start_time.strftime('%Y-%m-%d')
     next_day = now + timedelta(days=1)
     end_time = next_day.strftime('%Y-%m-%d')
@@ -147,8 +147,6 @@ last_target_time = None
 last_time = time.time()  # Record the current time
 i = 0
 while True:
-# Main loop to process data points
-    print(i)
     # Get a subset of the most recent data (last 30 minutes)
     if i > len(usdjpy_data):
         print("getting...", time.time() - last_time)
