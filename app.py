@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import time
 import prediction_model as pm
 import pytz
+import logging
 
 def fetch_training_data(period: str):
     # Define the USD/JPY ticker
@@ -45,7 +46,8 @@ def fetch_usdjpy_data(interval: str):
     try:
         data = yf.download(ticker, start=start_time, end=end_time, interval=interval, ignore_tz=False)
     except:
-        st.error("Well, something went wrong")
+        logging.exception("message")
+        return []
 
     # Ensure that data is available and convert it to a DataFrame
     if data.empty:
@@ -149,6 +151,10 @@ while True:
         if time.time() - last_time >= 60:  # 60 seconds = 1 minute
             print("fetching...")
             usdjpy_data = fetch_usdjpy_data("1m")
+            if len(usdjpy_data) == 0:
+                time.sleep(1)
+                i += 1
+                continue
             usdjpy_data = usdjpy_data.iloc[max(0, len(usdjpy_data) - visible_minutes):len(usdjpy_data) + 1]
             last_time = time.time()
         else:

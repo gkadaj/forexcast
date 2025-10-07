@@ -29,5 +29,4 @@ def predict(df):
     final_model = load_model("fx_model")
     s = predict_model(final_model, data=prediction_row)
     
-    print("PRED:", round(float(s.prediction_label), 3))
     return round(float(s.prediction_label), 3)
