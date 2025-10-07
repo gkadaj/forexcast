@@ -194,7 +194,7 @@ while True:
         target_x = recent_time + timedelta(minutes=targeting_period)
         with current_target_ui.container():
             with st.spinner("Next target calculation..."):
-                target_y = pm.predict(dfNm)
+                target_y = pm.predict(dfNm, str(targeting_period))
 
         st.session_state["current_target"] = {"time": target_x, "rate": target_y}
         with current_target_ui.container():
