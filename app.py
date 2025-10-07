@@ -14,7 +14,7 @@ def fetch_training_data(period: str):
 
     # Determine the last trading day
     now = datetime.now()
-    start_time = now - timedelta(days=5)
+    start_time = now - timedelta(days=2)
     start_time = start_time.strftime('%Y-%m-%d')
     next_day = now + timedelta(days=1)
     end_time = next_day.strftime('%Y-%m-%d')

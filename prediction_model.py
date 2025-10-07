@@ -23,6 +23,6 @@ def predict(df):
 
     exp = setup(data=df, target="next_close", session_id=123)
 
-    model = get_model()
+    model = create_model("lr")
     s = exp.predict_model(model, data=prediction_row)
     return round(float(s.prediction_label), 3)
