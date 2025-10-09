@@ -111,7 +111,7 @@ st.warning("Do not treat the presented data as investment advice. Use the data a
 
 
 with st.sidebar:
-    st.markdown("**BETA version**")
+    st.markdown("**PLAYGROUND version**")
     targeting_period = st.selectbox("Prediction Interval (mins)", [5, 15])
     visible_minutes = st.selectbox("Chart range (mins)", [30, 60])
 
